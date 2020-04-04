@@ -2,21 +2,40 @@ import pygame
 from Constants import Constants as const
 from Sprite import Sprite
 from character import Character
-from random import randint
+from random import randint, choice as random_choice
 
 ENEMY_RANDOM_CHANGE_TICKS = 30
 
 # basics of jumping is commented out for now unless we add later
 class Enemy(Character):
 
-    def __init__(self, x=const.SCREEN_W // 2, y=const.SCREEN_H * 1 // 3, speed=const.ENEMY_SPEED_STARTING):
+    TYPE_FOX = 1
+    TYPE_MUSHROOM = 2
+    MONSTER_CHOICES = [TYPE_FOX, TYPE_MUSHROOM]
+    MONSTER_SPRITES = {
+        TYPE_FOX: {
+            'front': 'images/Fox-idle-front.png',
+            'left': 'images/Fox-idle-left.png',
+            'right': 'images/Fox-idle-right.png',
+        },
+        TYPE_MUSHROOM: {
+            'front': 'images/mushroom-front.png',
+            'left': 'images/mushroom-left.png',
+            'right': 'images/mushroom-right.png',
+        }
+    }
+
+    def __init__(self, x=const.SCREEN_W // 2, y=const.SCREEN_H * 1 // 3, speed=const.ENEMY_SPEED, monster=None):
         #TODO: update sprites
+        self.monster = random_choice(self.MONSTER_CHOICES)
+        sprites = self.MONSTER_SPRITES[self.monster]
+
         super().__init__(x, y, speed,
-                         Sprite([pygame.image.load("images/Fox-idle-front.png"), pygame.image.load("images/Fox-idle-front.png")],     #standing
-                                [pygame.image.load("images/Fox-idle-left.png"), pygame.image.load("images/Fox-idle-left.png")],     #left
-                                [pygame.image.load("images/Fox-idle-right.png"), pygame.image.load("images/Fox-idle-right.png")],     #right
-                                [pygame.image.load("images/Fox-idle-front.png"), pygame.image.load("images/Fox-idle-front.png")],     #up
-                                [pygame.image.load("images/Fox-idle-front.png"), pygame.image.load("images/Fox-idle-front.png")]))    #down
+                         Sprite([pygame.image.load(sprites['front']), pygame.image.load(sprites['front'])],     #standing
+                                [pygame.image.load(sprites['left']), pygame.image.load(sprites['left'])],     #left
+                                [pygame.image.load(sprites['right']), pygame.image.load(sprites['right'])],     #right
+                                [pygame.image.load(sprites['front']), pygame.image.load(sprites['front'])],     #up
+                                [pygame.image.load(sprites['front']), pygame.image.load(sprites['front'])]))    #down
         self.state = randint(0, 3)
         self.move_tick = 0
 
