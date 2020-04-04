@@ -46,16 +46,18 @@ class Character:
 
 
     def move_left(self):
-        self.x = max(self.x - self.speed, 0)
+        self.x = max(self.x - self.speed, const.TILE_SIZE)
 
     def move_right(self):
-        self.x = min(self.x + self.speed, const.SCREEN_W - self.width())
+        print(self.width())
+        self.x = min(self.x + self.speed, const.SCREEN_W - const.TILE_SIZE - self.width())
 
     def move_up(self):
-        self.y = max(self.y - self.speed, 0)
+        self.y = max(self.y - self.speed, const.TILE_SIZE)
 
     def move_down(self):
-        self.y = min(self.y + self.speed, const.SCREEN_H - self.height())
+        print(self.height())
+        self.y = min(self.y + self.speed, const.SCREEN_H - const.TILE_SIZE - self.height())
 
     # TODO: thinking sprite class will be used by this class
     def advance_animation(self):
