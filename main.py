@@ -23,6 +23,10 @@ class Game:
         self.room = Room(entrance=Room.OPPOSITE_DIRECTIONS[last_exit])
         self.player.warp(self.room.get_player_spawn_point())
         self.room.enemies = Enemies(enemies_count)
+        self.enemies = Enemies(count=4)
+        self.score = 0
+        self.lives = 5
+        self.font = pygame.font.Font('freesansbold.ttf', 32)
 
     def run(self):
         run = True
@@ -84,9 +88,23 @@ class Game:
         self.player.draw(self.screen)
         self.room.draw(self.screen)
         Projectile.draw_projectiles(self.screen)
+
+        # check kills and update score
+        self.score += self.enemies.check_if_dead(Projectile.projectiles)
+
+        self.enemies.draw(self.screen)
+        self.enemies.move()
         self.room.enemies.check_if_dead(Projectile.projectiles)
         self.room.enemies.draw(self.screen)
         self.room.enemies.move()
+
+        #check if enemy killed player
+        if self.player.died(self.enemies.alive_enemies):
+            self.lives -= 1
+
+        # draw scoreboard
+        scoreboard = self.font.render(f"Score: {self.score} | Lives: {self.lives}", True, (255,255,255))
+        self.screen.blit(scoreboard, (const.TILE_SIZE + 5, const.TILE_SIZE + 5))
 
 
 if __name__ == "__main__":

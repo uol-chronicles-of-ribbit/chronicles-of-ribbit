@@ -20,10 +20,8 @@ class Enemies:
             enemy.move()
 
     def check_if_dead(self, active_projectiles):
-        # for all enemy
-            # for all active projectiles
-                #check if dead
         kill_count = 0
+
         for enemy in self.alive_enemies:
             for proj in active_projectiles:
                 if enemy.is_colliding(proj.x, proj.y, Bullet.bullet_radius, Bullet.bullet_radius):

@@ -20,6 +20,11 @@ class Enemy(Character):
         self.state = randint(0, 3)
         self.move_tick = 0
 
+    def respawn(self):
+        #TODO: add cool down period?
+        self.x = randint(const.TILE_SIZE, const.SCREEN_W - const.TILE_SIZE - self.width)
+        self.y = randint(const.TILE_SIZE, const.SCREEN_H - const.TILE_SIZE - self.height)
+
     def move(self):
         # attempt movement first
         if self.state == 0:
