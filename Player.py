@@ -14,6 +14,8 @@ class Player(Character):
                                 [pygame.image.load("images/Rabbit_Idle_Right.png")],     #right
                                 [pygame.image.load("images/Rabbit_Idle_Back.png")],     #up
                                 [pygame.image.load("images/Rabbit_Idle_Front.png")]))    #down
+        # amount of time after death player is invuln
+        self.invuln = 0
 
     def warp(self, coords):
         """Sets the x, y position of the player to a given set of coordinates"""
@@ -43,11 +45,14 @@ class Player(Character):
             self.sprite.face_forwards()
 
     def died(self, enemies, room):
-        for enemy in enemies:
-            if self.get_rect().colliderect(enemy.get_rect()):
-                # TODO: give `invuln` for few seconds
-                self.warp(room.get_player_spawn_point())
-                return True
+        if self.invuln <= 0:
+            for enemy in enemies:
+                if self.get_rect().colliderect(enemy.get_rect()):
+                    self.warp(room.get_player_spawn_point())
+                    self.invuln = 90
+                    return True
+        elif self.invuln > 0:
+            self.invuln -= 1
 
 
         # up and down only when not jumping, this code moves the player up and down, removed in favour of
