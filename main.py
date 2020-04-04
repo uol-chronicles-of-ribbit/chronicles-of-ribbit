@@ -103,7 +103,7 @@ class Game:
         self.room.enemies.move()
 
         #check if enemy killed player
-        if self.player.died(self.room.enemies.alive_enemies):
+        if self.player.died(self.room.enemies.alive_enemies, self.room):
             self.lives -= 1
 
         # draw scoreboard
