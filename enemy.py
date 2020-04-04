@@ -25,7 +25,7 @@ class Enemy(Character):
         }
     }
 
-    def __init__(self, x=const.SCREEN_W // 2, y=const.SCREEN_H * 1 // 3, speed=const.ENEMY_SPEED, monster=None):
+    def __init__(self, x=const.SCREEN_W // 2, y=const.SCREEN_H * 1 // 3, speed=const.ENEMY_SPEED_STARTING, monster=None):
         #TODO: update sprites
         self.monster = random_choice(self.MONSTER_CHOICES)
         sprites = self.MONSTER_SPRITES[self.monster]
