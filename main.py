@@ -26,6 +26,7 @@ class Game:
         self.font = pygame.font.Font('freesansbold.ttf', 18)
         self.spell_sound = mixer.Sound(const.SPELL_SOUND)
         self.death_rattle = mixer.Sound(const.PLAYER_DEATH_SOUND)
+        self.floor_tile = pygame.image.load("images/Floor_64px.gif")
 
 
     def new_room(self, last_exit, enemies_count):
@@ -91,6 +92,10 @@ class Game:
 
     def draw(self):
         self.screen.fill(const.BG_COLOUR)
+        for i in range(10):
+            for j in range(10):
+                self.screen.blit(self.floor_tile, (i * 64, j * 64))
+
         self.room.draw(self.screen)
 
         # check kills and update score
