@@ -1,5 +1,6 @@
 import pygame
 from Constants import Constants as const
+from Sprite import Sprite
 from character import Character
 
 
@@ -7,7 +8,12 @@ from character import Character
 class Player(Character):
 
     def __init__(self, x=const.SCREEN_W / 2, y=const.SCREEN_H / 2, speed=const.PLAYER_SPEED):
-        super().__init__(x, y, speed)
+        super().__init__(x, y, speed,
+                         Sprite([pygame.image.load("images/player_forwards_1.png"), pygame.image.load("images/player_forwards_2.png")],     #standing
+                                [pygame.image.load("images/player_left_1.png"), pygame.image.load("images/player_left_2.png")],     #left
+                                [pygame.image.load("images/player_right_1.png"), pygame.image.load("images/player_right_2.png")],     #right
+                                [pygame.image.load("images/player_forwards_1.png"), pygame.image.load("images/player_forwards_2.png")],     #up
+                                [pygame.image.load("images/player_forwards_1.png"), pygame.image.load("images/player_forwards_2.png")]))    #down
 
     def move(self, keys):
         is_moving = False
@@ -28,10 +34,8 @@ class Player(Character):
             is_moving = True
             self.move_down()
 
-        if is_moving:
-            self.advance_animation()
-        else:
-            self.stop_moving_animation()
+        if not is_moving:
+            self.sprite.face_forwards()
 
         # up and down only when not jumping, this code moves the player up and down, removed in favour of
         # jumping with up and space fires a bullet
@@ -59,4 +63,3 @@ class Player(Character):
         # else:  # done jumping, reset
         #     self.isJumping = False
         #     self.jumpCount = 10
-
