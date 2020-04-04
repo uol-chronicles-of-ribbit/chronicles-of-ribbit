@@ -11,5 +11,6 @@ class Constants:
     FPS = 30
     BG_COLOUR = pygame.Color('dark blue')
     TILE_SIZE = 16
-    WALL_IMAGE = 'assets/wall.png'
-    SPELL_SOUND = 'assets/spell.wav'
+    WALL_IMAGE = 'sounds/wall.png'
+    SPELL_SOUND = 'sounds/spell.wav'
+    PLAYER_DEATH_SOUND = 'sounds/player_death.wav'

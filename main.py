@@ -23,6 +23,7 @@ class Game:
         self.lives = 5
         self.font = pygame.font.Font('freesansbold.ttf', 18)
         self.spell_sound = mixer.Sound(const.SPELL_SOUND)
+        self.death_rattle = mixer.Sound(const.PLAYER_DEATH_SOUND)
 
 
     def new_room(self, last_exit, enemies_count):
@@ -108,6 +109,7 @@ class Game:
 
         #check if enemy killed player
         if self.player.died(self.room.enemies.alive_enemies, self.room):
+            self.death_rattle.play()
             self.lives -= 1
 
         # draw scoreboard
