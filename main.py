@@ -1,3 +1,5 @@
+import random
+
 import pygame
 from Constants import Constants as const
 from room import Room
@@ -26,7 +28,6 @@ class Game:
             if self.room is None:
                 self.room = Room()
                 self.player.warp(self.room.get_player_spawn_point())
-                self.room.complete_room()  # TODO Only complete when the player earns it!
                 self.room.enemies = Enemies(count=4)
 
             for event in pygame.event.get():
@@ -35,6 +36,20 @@ class Game:
                     run = False
                 if event.type == pygame.KEYDOWN:
                     self.react_to_key_event(event.key)
+
+            if len(self.room.enemies.alive_enemies) > 0:
+                for enemy in self.room.enemies.alive_enemies:
+                    if self.player.is_colliding(enemy.x, enemy.y, 32, 32):  # TODO remove hardcoded size variable
+                        # TODO Handle player death
+                        print("Dead!!!")
+                    # TODO Check if projectile is colliding
+            elif not self.room.complete:
+                self.room.complete_room()
+
+            if self.room.complete:
+                for exit_tile in self.room.exits:
+                    if self.player.is_colliding(exit_tile.x, exit_tile.y, const.TILE_SIZE, const.TILE_SIZE):
+                        self.room = Room(entrance=Room.OPPOSITE_DIRECTIONS[self.room.exit])
 
             self.react_to_keys()
             self.update_objects()
@@ -49,6 +64,10 @@ class Game:
     def react_to_key_event(self, key):
         if key == pygame.K_SPACE:     # fire bullet
             Bullet.fire_bullet(self.player)
+        if key == pygame.K_k:  # kill an enemy key TODO Remove, this is for debugging
+            print('Enemy killed!')
+            enemy = random.choice(self.room.enemies.alive_enemies)
+            self.room.enemies.alive_enemies.remove(enemy)
 
     def react_to_keys(self):
         self.player.move(pygame.key.get_pressed())

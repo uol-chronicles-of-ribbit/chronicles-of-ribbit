@@ -11,6 +11,12 @@ class Room:
     SOUTH = 3
     WEST = 4
     DIRECTIONS = (NORTH, EAST, SOUTH, WEST)
+    OPPOSITE_DIRECTIONS = {
+        NORTH: SOUTH,
+        EAST: WEST,
+        SOUTH: NORTH,
+        WEST: EAST,
+    }
     PLAYER_SPAWN_POINTS = {
         NORTH: (const.SCREEN_W / 2, const.TILE_SIZE)
     }
