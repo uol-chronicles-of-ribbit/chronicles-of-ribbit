@@ -11,6 +11,9 @@ class Room:
     SOUTH = 3
     WEST = 4
     DIRECTIONS = (NORTH, EAST, SOUTH, WEST)
+    PLAYER_SPAWN_POINTS = {
+        NORTH: (const.SCREEN_W / 2, const.TILE_SIZE)
+    }
 
     def __init__(self, screen, entrance=None, complete=False):
         self.screen = screen
@@ -20,7 +23,6 @@ class Room:
 
     def create_border_wall(self, screen):
         """Draws a border of Obstacle objects, clockwise, surrounding the grid"""
-        # TODO Add a door?
         for north_wall in range(0, const.SCREEN_W, const.TILE_SIZE):
             x = north_wall
             y = 0
@@ -45,6 +47,12 @@ class Room:
             valid_directions.remove(self.entrance)
         return random.choice(valid_directions)
 
+    def get_player_spawn_point(self):
+        """Returns a tuple with the X, Y coordinates of where the player will spawn in the room."""
+        # Entrance should not be none, but just in case, we'll spawn at N
+        if self.entrance is None:
+            self.entrance = self.NORTH
+        return self.PLAYER_SPAWN_POINTS[self.entrance]
+
     def create(self):
         self.create_border_wall(self.screen)
-
