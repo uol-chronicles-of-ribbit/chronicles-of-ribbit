@@ -9,11 +9,11 @@ class Player(Character):
 
     def __init__(self, x=const.SCREEN_W / 2, y=const.SCREEN_H / 2, speed=const.PLAYER_SPEED):
         super().__init__(x, y, speed,
-                         Sprite([pygame.image.load("images/Rabbit_Idle_Left.png")],     #standing
+                         Sprite([pygame.image.load("images/Rabbit_Idle_Front.png")],     #standing
                                 [pygame.image.load("images/Rabbit_Idle_Left.png")],     #left
                                 [pygame.image.load("images/Rabbit_Idle_Right.png")],     #right
-                                [pygame.image.load("images/Rabbit_Idle_Up.png")],     #up
-                                [pygame.image.load("images/Rabbit_Idle_Down.png")]))    #down
+                                [pygame.image.load("images/Rabbit_Idle_Back.png")],     #up
+                                [pygame.image.load("images/Rabbit_Idle_Front.png")]))    #down
 
     def move(self, keys):
         is_moving = False
