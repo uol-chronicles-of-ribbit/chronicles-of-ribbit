@@ -37,6 +37,15 @@ class Player(Character):
         if not is_moving:
             self.sprite.face_forwards()
 
+    def died(self, enemies):
+        for enemy in enemies:
+            if self.get_rect().colliderect(enemy.get_rect()):
+                # TODO: give `invuln` for few seconds
+                self.x = const.SCREEN_W / 2
+                self.y = const.SCREEN_H / 2
+                return True
+
+
         # up and down only when not jumping, this code moves the player up and down, removed in favour of
         # jumping with up and space fires a bullet
 
