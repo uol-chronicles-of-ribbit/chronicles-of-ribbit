@@ -12,6 +12,9 @@ pygame.init()
 
 
 class Game:
+    enemy_speed = const.ENEMY_SPEED_STARTING
+    enemy_count = const.ENEMY_COUNT_STARTING
+
     def __init__(self):
         self.screen = pygame.display.set_mode((const.SCREEN_W, const.SCREEN_H))
         self.timer = pygame.time.Clock()
@@ -22,10 +25,10 @@ class Game:
         self.lives = 5
         self.font = pygame.font.Font('freesansbold.ttf', 18)
 
-    def new_room(self, last_exit, enemies_count):
+    def new_room(self, last_exit):
         self.room = Room(entrance=Room.OPPOSITE_DIRECTIONS[last_exit])
         self.player.warp(self.room.get_player_spawn_point())
-        self.room.enemies = Enemies(enemies_count)
+        self.room.enemies = Enemies(self.enemy_count, speed=self.enemy_speed)
 
     def run(self):
         run = True
@@ -34,7 +37,7 @@ class Game:
 
             # Create first room
             if self.room is None:
-                self.new_room(Room.SOUTH, 4)
+                self.new_room(Room.SOUTH)
 
             for event in pygame.event.get():
                 # exit game
@@ -50,11 +53,12 @@ class Game:
                 #         print("Dead!!!")
             elif not self.room.complete:
                 self.room.complete_room()
+                self.increase_difficulty()
 
             if self.room.complete:
                 for exit_tile in self.room.exits:
                     if self.player.is_colliding(exit_tile.x, exit_tile.y, const.TILE_SIZE*2, const.TILE_SIZE*2):
-                        self.new_room(last_exit=self.room.exit, enemies_count=4)
+                        self.new_room(last_exit=self.room.exit)
 
             self.react_to_keys()
             self.update_objects()
@@ -85,7 +89,7 @@ class Game:
     def draw(self):
         self.screen.fill(const.BG_COLOUR)
         self.player.draw(self.screen)
-        self.room.draw(self.screen)
+        self.room.draw(self.screen) # TODO don't do this every time
         Projectile.draw_projectiles(self.screen)
 
         # check kills and update score
@@ -107,6 +111,17 @@ class Game:
         # draw scoreboard
         scoreboard = self.font.render(f"Score: {self.score} | Lives: {self.lives}", True, (255,255,255))
         self.screen.blit(scoreboard, (const.TILE_SIZE + 5, const.TILE_SIZE + 5))
+
+    def increase_difficulty(self):
+        """Randomly increase either enemy speed or enemy count to increase difficulty"""
+        difficulty_options = [const.INCREASE_COUNT, const.INCREASE_SPEED]
+        difficulty_option = random.choice(difficulty_options)
+        if difficulty_option == const.INCREASE_SPEED:
+            print('increased speed')
+            self.enemy_speed += const.SPEED_INCREASE
+        elif difficulty_option == const.INCREASE_COUNT:
+            print('increased count')
+            self.enemy_count += const.COUNT_INCREASE
 
 
 if __name__ == "__main__":

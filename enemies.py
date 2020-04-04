@@ -6,10 +6,12 @@ from projectile import Bullet
 
 
 class Enemies:
-    def __init__(self, count=6):
+    def __init__(self, count=const.ENEMY_COUNT_STARTING, speed=const.ENEMY_SPEED_STARTING):
         self.alive_enemies = []
         for _ in range(count):
-            self.alive_enemies.append(Enemy(x=randint(const.TILE_SIZE, const.SCREEN_W - const.TILE_SIZE - 32), y = randint(const.TILE_SIZE, const.SCREEN_H - const.TILE_SIZE - 32 )))
+            self.alive_enemies.append(Enemy(x=randint(const.TILE_SIZE, const.SCREEN_W - const.TILE_SIZE - 32),
+                                            y=randint(const.TILE_SIZE, const.SCREEN_H - const.TILE_SIZE - 32),
+                                            speed=speed))
 
     def draw(self, screen):
         for enemy in self.alive_enemies:

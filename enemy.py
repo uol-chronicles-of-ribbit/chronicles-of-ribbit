@@ -9,7 +9,7 @@ ENEMY_RANDOM_CHANGE_TICKS = 30
 # basics of jumping is commented out for now unless we add later
 class Enemy(Character):
 
-    def __init__(self, x=const.SCREEN_W // 2, y=const.SCREEN_H * 1 // 3, speed=const.ENEMY_SPEED):
+    def __init__(self, x=const.SCREEN_W // 2, y=const.SCREEN_H * 1 // 3, speed=const.ENEMY_SPEED_STARTING):
         #TODO: update sprites
         super().__init__(x, y, speed,
                          Sprite([pygame.image.load("images/Fox-idle-front.png"), pygame.image.load("images/Fox-idle-front.png")],     #standing
