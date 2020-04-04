@@ -14,3 +14,4 @@ class Constants:
     WALL_IMAGE = 'sounds/wall.png'
     SPELL_SOUND = 'sounds/spell.wav'
     PLAYER_DEATH_SOUND = 'sounds/player_death.wav'
+    ICON_FILE = 'images/icon.png'
