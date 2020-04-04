@@ -3,6 +3,7 @@ from Constants import Constants as const
 from room import Room
 from Player import Player
 from projectile import *
+from enemies import Enemies
 
 # initialize pygame
 pygame.init()
@@ -14,6 +15,7 @@ class Game:
         self.timer = pygame.time.Clock()
         pygame.display.set_caption(const.GAME_NAME)
         self.player = Player()
+        self.enemies = Enemies(count=4)
 
     def run(self):
         run = True
@@ -52,6 +54,8 @@ class Game:
         self.screen.fill(const.BG_COLOUR)
         self.player.draw(self.screen)
         Projectile.draw_projectiles(self.screen)
+        self.enemies.draw(self.screen)
+        self.enemies.move()
 
 
 if __name__ == "__main__":
