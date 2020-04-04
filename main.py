@@ -18,7 +18,7 @@ class Game:
         self.enemies = Enemies(count=4)
         self.score = 0
         self.lives = 5
-        self.font = pygame.font.Font('freesansbold.ttf', 32)
+        self.font = pygame.font.Font('freesansbold.ttf', 18)
 
     def run(self):
         run = True
@@ -55,14 +55,17 @@ class Game:
 
     def draw(self):
         self.screen.fill(const.BG_COLOUR)
-        self.player.draw(self.screen)
-        Projectile.draw_projectiles(self.screen)
 
         # check kills and update score
         self.score += self.enemies.check_if_dead(Projectile.projectiles)
 
         self.enemies.draw(self.screen)
-        self.enemies.move()
+
+        if self.lives <= 0:
+            game_over = self.font.render('GAME OVER!', True, (255, 255, 255))
+            self.screen.blit(game_over, (const.SCREEN_W//2, const.SCREEN_H//2))
+            return
+
 
         #check if enemy killed player
         if self.player.died(self.enemies.alive_enemies):
@@ -71,6 +74,12 @@ class Game:
         # draw scoreboard
         scoreboard = self.font.render(f"Score: {self.score} | Lives: {self.lives}", True, (255,255,255))
         self.screen.blit(scoreboard, (const.TILE_SIZE + 5, const.TILE_SIZE + 5))
+
+        self.enemies.move()
+        Projectile.draw_projectiles(self.screen)
+        self.player.draw(self.screen)
+
+
 
 
 if __name__ == "__main__":
