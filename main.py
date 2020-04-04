@@ -16,7 +16,6 @@ class Game:
         pygame.display.set_caption(const.GAME_NAME)
         self.player = Player()
         self.room = None
-        self.enemies = Enemies(count=4)
 
     def run(self):
         run = True
@@ -28,6 +27,7 @@ class Game:
                 self.room = Room()
                 self.player.warp(self.room.get_player_spawn_point())
                 self.room.complete_room()  # TODO Only complete when the player earns it!
+                self.room.enemies = Enemies(count=4)
 
             for event in pygame.event.get():
                 # exit game
@@ -60,8 +60,8 @@ class Game:
         self.screen.fill(const.BG_COLOUR)
         self.player.draw(self.screen)
         Projectile.draw_projectiles(self.screen)
-        self.enemies.draw(self.screen)
-        self.enemies.move()
+        self.room.enemies.draw(self.screen)
+        self.room.enemies.move()
         self.room.draw(self.screen)
 
 
