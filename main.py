@@ -16,6 +16,8 @@ class Game:
         pygame.display.set_caption(const.GAME_NAME)
         self.player = Player()
         self.enemies = Enemies(count=4)
+        self.score = 0
+        self.font = pygame.font.Font('freesansbold.ttf', 32)
 
     def run(self):
         run = True
@@ -54,9 +56,13 @@ class Game:
         self.screen.fill(const.BG_COLOUR)
         self.player.draw(self.screen)
         Projectile.draw_projectiles(self.screen)
-        self.enemies.check_if_dead(Projectile.projectiles)
+        self.score += self.enemies.check_if_dead(Projectile.projectiles)
         self.enemies.draw(self.screen)
         self.enemies.move()
+
+        # draw scoreboard
+        scoreboard = self.font.render(f"Score: {self.score}", True, (255,255,255))
+        self.screen.blit(scoreboard, (const.TILE_SIZE + 5, const.TILE_SIZE + 5))
 
 
 if __name__ == "__main__":

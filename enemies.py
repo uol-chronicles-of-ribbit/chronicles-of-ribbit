@@ -26,7 +26,6 @@ class Enemies:
             for proj in active_projectiles:
                 if enemy.is_colliding(proj.x, proj.y, Bullet.bullet_radius, Bullet.bullet_radius):
                     kill_count += 1
-                    print('hit an enemy')
                     enemy.respawn()
 
         return kill_count
