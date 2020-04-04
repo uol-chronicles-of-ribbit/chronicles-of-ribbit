@@ -11,7 +11,7 @@ class Character:
         # TO be defined by child class
         self.img = None
 
-        # TODO: upd ate these dynamically from imagesize using functions
+        # TODO: update these dynamically from imagesize using functions
         self.width = 16
         self.height = 32
 
@@ -34,4 +34,11 @@ class Character:
 
     def move_down(self):
         self.y = min(self.y + self.speed, const.SCREEN_H - self.height)
+
+    # TODO: thinking sprite class will be used by this class
+    def advance_animation(self):
+        pass
+
+    def stop_moving_animation(self):
+        pass
 
