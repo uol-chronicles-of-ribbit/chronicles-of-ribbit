@@ -2,11 +2,11 @@ import pygame
 from Constants import Constants as const
 
 # local constants
-STANDING = 0
-LEFT = 1
-RIGHT = 2
-UP = 3
-DOWN = 4
+STANDING = (0, 0)
+LEFT = (-1, 0)
+RIGHT = (1, 0)
+UP = (0, -1)
+DOWN = (0, 1)
 
 
 class Sprite(object):
