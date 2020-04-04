@@ -69,20 +69,20 @@ class Room:
 
         # TODO Move hardcoded values or generate dynamically based on width/height
         if self.exit == self.NORTH:
-            self.exits = self.walls[19:23]
+            self.exits = self.walls[9:11]
         elif self.exit == self.EAST:
-            self.exits = self.walls[57:61]
+            self.exits = self.walls[28:31]
             for exit_ in self.exits:
                 exit_.x -= const.TILE_SIZE
                 exit_.y -= const.TILE_SIZE
         elif self.exit == self.SOUTH:
-            self.exits = self.walls[97:101]
+            self.exits = self.walls[48:51]
             # adjust hitbox so user can hit it
             for exit_ in self.exits:
                 exit_.x -= const.TILE_SIZE
                 exit_.y -= const.TILE_SIZE
         elif self.exit == self.WEST:
-            self.exits = self.walls[137:141]
+            self.exits = self.walls[68:71]
 
         for exit_tile in self.exits:
             self.walls.remove(exit_tile)
