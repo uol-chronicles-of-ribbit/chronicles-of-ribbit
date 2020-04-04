@@ -1,6 +1,5 @@
 import pygame
 from Constants import Constants as const
-from Sprite import Sprite
 
 
 class Character:
@@ -67,4 +66,8 @@ class Character:
             self.sprite.face_down()
         self.y = min(self.y + self.speed, const.SCREEN_H - const.TILE_SIZE - self.height)
 
-
+    def facing(self):
+        if self.sprite:
+            return self.sprite.direction
+        else:
+            return (1, 1)    # could refactor to have direction in this class, or just assume always have a sprite

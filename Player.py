@@ -9,11 +9,11 @@ class Player(Character):
 
     def __init__(self, x=const.SCREEN_W / 2, y=const.SCREEN_H / 2, speed=const.PLAYER_SPEED):
         super().__init__(x, y, speed,
-                         Sprite([pygame.image.load("images/player_forwards_1.png"), pygame.image.load("images/player_forwards_2.png")],     #standing
-                                [pygame.image.load("images/player_left_1.png"), pygame.image.load("images/player_left_2.png")],     #left
-                                [pygame.image.load("images/player_right_1.png"), pygame.image.load("images/player_right_2.png")],     #right
-                                [pygame.image.load("images/player_forwards_1.png"), pygame.image.load("images/player_forwards_2.png")],     #up
-                                [pygame.image.load("images/player_forwards_1.png"), pygame.image.load("images/player_forwards_2.png")]))    #down
+                         Sprite([pygame.image.load("images/Rabbit_Idle_Left.png")],     #standing
+                                [pygame.image.load("images/Rabbit_Idle_Left.png")],     #left
+                                [pygame.image.load("images/Rabbit_Idle_Right.png")],     #right
+                                [pygame.image.load("images/Rabbit_Idle_Up.png")],     #up
+                                [pygame.image.load("images/Rabbit_Idle_Down.png")]))    #down
 
     def warp(self, coords):
         """Sets the x, y position of the player to a given set of coordinates"""
