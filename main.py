@@ -100,6 +100,10 @@ class Game:
             self.screen.blit(game_over, (const.SCREEN_W//2, const.SCREEN_H//2))
             return
 
+        self.player.draw(self.screen)
+        Projectile.draw_projectiles(self.screen)
+
+
         self.room.enemies.check_if_dead(Projectile.projectiles)
         self.room.enemies.draw(self.screen)
         self.room.enemies.move()

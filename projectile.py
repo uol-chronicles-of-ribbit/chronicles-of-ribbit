@@ -48,7 +48,7 @@ class Bullet(Projectile):
     def draw(self, win):
         elapsed = pygame.time.get_ticks() - self.start_tick
         for i in range(4):
-            r = round(Bullet.bullet_radius * i * elapsed * 0.005)
+            r = round(Bullet.bullet_radius + i * elapsed * 0.005)
             image = pygame.transform.scale(spell_img, (r*2, r*2))
             win.blit(image, (self.x - r, self.y -r))
 
