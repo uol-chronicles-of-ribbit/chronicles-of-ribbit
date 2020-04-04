@@ -18,6 +18,14 @@ class Player(Character):
         # amount of time after death player is invuln
         self.invuln = 0
         self.spawn_at = None
+        self.death_sequence = [pygame.image.load("images/Rabbit_Death_1.png"),
+                               pygame.image.load("images/Rabbit_Death_2.png"),
+                               pygame.image.load("images/Rabbit_Death_3.png"),
+                               pygame.image.load("images/Rabbit_Death_4.png"),
+                               pygame.image.load("images/Rabbit_Death_5.png"),
+                               pygame.image.load("images/Rabbit_Death_6.png"),
+                               pygame.image.load("images/Rabbit_Death_7.png"),
+                               pygame.image.load("images/Rabbit_Death_8.png")]
 
     def warp(self, coords):
         """Sets the x, y position of the player to a given set of coordinates"""
@@ -64,13 +72,9 @@ class Player(Character):
             Character.draw(self, screen)
 
         elif self.invuln > 0:
-            if self.invuln > 80:
-                delta = (self.invuln - 60) / 90
-                h = int(self.height * delta)
-                w = int(self.width * delta)
-                image = pygame.transform.scale(self.sprite.current_imgs[0], (self.width, h))
-                # screen.blit(spell_img, (self.x, self.y + self.height - h))
-                screen.blit(image, (self.x, self.y + self.height - h))
+            if self.invuln >= 51:
+                idx = int((90 - self.invuln) / 5)
+                screen.blit(self.death_sequence[idx], (self.x, self.y))
 
         else:
             self.warp(self.spawn_at)
