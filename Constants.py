@@ -7,3 +7,4 @@ class Constants:
     SCREEN_H = 600
     GAME_NAME = 'Chronicles of Ribbit'
     FPS = 30
+    BG_COLOUR = pygame.Color('dark blue')
