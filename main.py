@@ -84,10 +84,9 @@ class Game:
         self.screen.fill(const.BG_COLOUR)
         self.player.draw(self.screen)
         Projectile.draw_projectiles(self.screen)
-        self.room.enemies.draw(self.screen)
-        self.room.enemies.move()
-        self.room.draw(self.screen)
-
+        self.enemies.check_if_dead(Projectile.projectiles)
+        self.enemies.draw(self.screen)
+        self.enemies.move()
 
 
 if __name__ == "__main__":

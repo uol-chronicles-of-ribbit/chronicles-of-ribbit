@@ -2,6 +2,7 @@ import pygame
 from Constants import Constants as const
 from random import choice, randint
 from enemy import Enemy
+from projectile import Bullet
 
 
 class Enemies:
@@ -17,3 +18,17 @@ class Enemies:
     def move(self):
         for enemy in self.alive_enemies:
             enemy.move()
+
+    def check_if_dead(self, active_projectiles):
+        # for all enemy
+            # for all active projectiles
+                #check if dead
+        kill_count = 0
+        # TODO: fix hit detection.
+        for enemy in self.alive_enemies:
+            for proj in active_projectiles:
+                if enemy.is_colliding(proj.x, proj.y, Bullet.bullet_radius, Bullet.bullet_radius):
+                    kill_count += 1
+                    print('hit an enemy')
+
+        return kill_count

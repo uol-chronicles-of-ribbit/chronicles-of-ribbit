@@ -30,6 +30,9 @@ class Character:
     #     else:
     #         return 0
 
+    def get_rect(self):
+        return pygame.Rect(self.x, self.y, self.width, self.height)
+
     def draw(self, screen):
         # draw the image on x, y; else draw a red rectangle
         if self.sprite:
@@ -38,13 +41,9 @@ class Character:
             pygame.draw.rect(screen, (255,0,0), (self.x, self.y, self.width, self.height), 0)
 
     def is_colliding(self, x, y, w, h):
-        if self.x > x + w or x > self.x + self.width:
-            return False
+        test_rect = pygame.Rect(x, y, w, h)
+        return test_rect.colliderect(self.get_rect())
 
-        if self.y < y + h or y < self.y + self.height:
-            return False
-
-        return True
 
     def move_left(self):
         if self.sprite:
