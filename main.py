@@ -1,30 +1,9 @@
 import pygame
 from Constants import Constants as const
-from Obstacles import Obstacle
+from room import Room
 
 # initialize pygame
 pygame.init()
-
-
-def create_border_wall(screen):  # TODO move to Rooms.py
-    """Draws a border of Obstacle objects, clockwise, surrounding the grid"""
-    # TODO Add a door?
-    for north_wall in range(0, const.SCREEN_W, const.TILE_SIZE):
-        x = north_wall
-        y = 0
-        Obstacle(x, y, const.WALL_IMAGE).draw(screen)
-    for east_wall in range(const.SCREEN_H, 0, -const.TILE_SIZE):
-        x = const.SCREEN_W-const.TILE_SIZE
-        y = east_wall
-        Obstacle(x, y, const.WALL_IMAGE).draw(screen)
-    for south_wall in range(const.SCREEN_W, 0, -const.TILE_SIZE):
-        x = south_wall
-        y = const.SCREEN_H - const.TILE_SIZE
-        Obstacle(x, y, const.WALL_IMAGE).draw(screen)
-    for west_wall in range(0, const.SCREEN_H, const.TILE_SIZE):
-        x = 0
-        y = west_wall
-        Obstacle(x, y, const.WALL_IMAGE).draw(screen)
 
 
 class Game:
@@ -47,7 +26,7 @@ class Game:
             self.update_objects()
             self.draw()
 
-            create_border_wall(screen=self.screen)
+            Room(self.screen).create()
             pygame.display.update()
             pygame.time.delay(50)
             self.timer.tick(const.FPS)
