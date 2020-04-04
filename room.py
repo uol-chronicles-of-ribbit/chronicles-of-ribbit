@@ -1,11 +1,22 @@
+import random
+
 from Constants import Constants as const
 from obstacle import Obstacle
 
 
 class Room:
 
-    def __init__(self, screen):
+    NORTH = 1
+    EAST = 2
+    SOUTH = 3
+    WEST = 4
+    DIRECTIONS = (NORTH, EAST, SOUTH, WEST)
+
+    def __init__(self, screen, entrance=None, complete=False):
         self.screen = screen
+        self.complete = complete
+        self.entrance = entrance
+        self.exit = self.create_exit()
 
     def create_border_wall(self, screen):
         """Draws a border of Obstacle objects, clockwise, surrounding the grid"""
@@ -26,6 +37,13 @@ class Room:
             x = 0
             y = west_wall
             Obstacle(x, y, const.WALL_IMAGE).draw(screen)
+
+    def create_exit(self):
+        """Creates an exit direction randomly from N, E, S, W, excluding entrance direction if it exists."""
+        valid_directions = list(self.DIRECTIONS)
+        if self.entrance is not None:
+            valid_directions.remove(self.entrance)
+        return random.choice(valid_directions)
 
     def create(self):
         self.create_border_wall(self.screen)
