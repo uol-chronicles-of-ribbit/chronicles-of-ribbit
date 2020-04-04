@@ -1,6 +1,6 @@
 import pygame
 from Constants import Constants as const
-from Sprite import Sprite
+from Sprite import *
 from character import Character
 from projectile import spell_img
 
@@ -16,6 +16,7 @@ class Player(Character):
                                 [pygame.image.load("images/Rabbit_Idle_Back.png")],     #up
                                 [pygame.image.load("images/Rabbit_Idle_Front.png")]))    #down
         # amount of time after death player is invuln
+        self.last_move = LEFT
         self.invuln = 0
         self.spawn_at = None
         self.death_sequence = [pygame.image.load("images/Rabbit_Death_1.png"),
@@ -55,6 +56,8 @@ class Player(Character):
             self.move_down()
 
         if not is_moving:
+            if self.sprite.direction != STANDING:
+                self.last_move = self.sprite.direction
             self.sprite.face_forwards()
 
     def died(self, enemies, room):
