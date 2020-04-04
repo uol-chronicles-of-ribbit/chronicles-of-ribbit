@@ -3,7 +3,7 @@ import pygame
 
 #
 class Constants:
-    PLAYER_SPEED = None
+    PLAYER_SPEED = 5
     SCREEN_W = 640
     SCREEN_H = 640
     GAME_NAME = 'Chronicles of Ribbit'

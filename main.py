@@ -1,6 +1,7 @@
 import pygame
 from Constants import Constants as const
 from room import Room
+from Player import Player
 
 # initialize pygame
 pygame.init()
@@ -11,6 +12,7 @@ class Game:
         self.screen = pygame.display.set_mode((const.SCREEN_W, const.SCREEN_H))
         self.timer = pygame.time.Clock()
         pygame.display.set_caption(const.GAME_NAME)
+        self.player = Player()
 
     def run(self):
         run = True
@@ -34,13 +36,15 @@ class Game:
         pygame.quit()
 
     def react_to_keys(self):
-        keys = pygame.key.get_pressed()
+        self.player.move(pygame.key.get_pressed())
+
 
     def update_objects(self):
         print("nothing updated yet")
 
     def draw(self):
         self.screen.fill(const.BG_COLOUR)
+        self.player.draw(self.screen)
 
 
 
