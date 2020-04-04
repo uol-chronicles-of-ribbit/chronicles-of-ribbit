@@ -84,9 +84,7 @@ class Game:
 
     def draw(self):
         self.screen.fill(const.BG_COLOUR)
-        self.player.draw(self.screen)
         self.room.draw(self.screen)
-        Projectile.draw_projectiles(self.screen)
 
         # check kills and update score
         self.score += self.room.enemies.check_if_dead(Projectile.projectiles)
@@ -95,6 +93,10 @@ class Game:
             game_over = self.font.render('GAME OVER!', True, (255, 255, 255))
             self.screen.blit(game_over, (const.SCREEN_W//2, const.SCREEN_H//2))
             return
+
+        self.player.draw(self.screen)
+        Projectile.draw_projectiles(self.screen)
+
 
         self.room.enemies.check_if_dead(Projectile.projectiles)
         self.room.enemies.draw(self.screen)
