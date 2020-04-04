@@ -17,6 +17,8 @@ class Game:
         self.screen = pygame.display.set_mode((const.SCREEN_W, const.SCREEN_H))
         self.timer = pygame.time.Clock()
         pygame.display.set_caption(const.GAME_NAME)
+        icon = pygame.image.load(const.ICON_FILE)
+        pygame.display.set_icon(icon)
         self.player = Player()
         self.room = None
         self.score = 0
