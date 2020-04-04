@@ -26,6 +26,6 @@ class Enemies:
             for proj in active_projectiles:
                 if enemy.is_colliding(proj.x, proj.y, Bullet.bullet_radius, Bullet.bullet_radius):
                     kill_count += 1
-                    enemy.respawn()
+                    self.alive_enemies.remove(enemy)  # FIXME bad to remove from an existing list, crashes when multiple projectiles hit
 
         return kill_count

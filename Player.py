@@ -15,6 +15,11 @@ class Player(Character):
                                 [pygame.image.load("images/Rabbit_Idle_Back.png")],     #up
                                 [pygame.image.load("images/Rabbit_Idle_Front.png")]))    #down
 
+    def warp(self, coords):
+        """Sets the x, y position of the player to a given set of coordinates"""
+        self.x = coords[0]
+        self.y = coords[1]
+
     def move(self, keys):
         is_moving = False
 
@@ -37,12 +42,11 @@ class Player(Character):
         if not is_moving:
             self.sprite.face_forwards()
 
-    def died(self, enemies):
+    def died(self, enemies, room):
         for enemy in enemies:
             if self.get_rect().colliderect(enemy.get_rect()):
                 # TODO: give `invuln` for few seconds
-                self.x = const.SCREEN_W / 2
-                self.y = const.SCREEN_H / 2
+                self.warp(room.get_player_spawn_point())
                 return True
 
 

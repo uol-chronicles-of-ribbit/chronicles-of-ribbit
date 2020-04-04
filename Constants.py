@@ -3,7 +3,7 @@ import pygame
 
 #
 class Constants:
-    PLAYER_SPEED = 5
+    PLAYER_SPEED = 8
     ENEMY_SPEED = 3
     SCREEN_W = 640
     SCREEN_H = 640
