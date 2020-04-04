@@ -22,12 +22,26 @@ class Game:
                 if event.type == pygame.QUIT:
                     run = False
 
+            self.react_to_keys()
+            self.update_objects()
+            self.draw()
+
             pygame.display.update()
             pygame.time.delay(50)
             self.timer.tick(const.FPS)
 
 
         pygame.quit()
+
+    def react_to_keys(self):
+        keys = pygame.key.get_pressed()
+
+    def update_objects(self):
+        print("nothing updated yet")
+
+    def draw(self):
+        self.screen.fill(const.BG_COLOUR)
+
 
 if __name__ == "__main__":
     game = Game()
