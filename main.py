@@ -19,6 +19,11 @@ class Game:
         self.player = Player()
         self.room = None
 
+    def new_room(self, last_exit, enemies_count):
+        self.room = Room(entrance=Room.OPPOSITE_DIRECTIONS[last_exit])
+        self.player.warp(self.room.get_player_spawn_point())
+        self.room.enemies = Enemies(enemies_count)
+
     def run(self):
         run = True
 
@@ -26,9 +31,7 @@ class Game:
 
             # Create first room
             if self.room is None:
-                self.room = Room()
-                self.player.warp(self.room.get_player_spawn_point())
-                self.room.enemies = Enemies(count=4)
+                self.new_room(Room.SOUTH, 4)
 
             for event in pygame.event.get():
                 # exit game
@@ -68,6 +71,8 @@ class Game:
             print('Enemy killed!')
             enemy = random.choice(self.room.enemies.alive_enemies)
             self.room.enemies.alive_enemies.remove(enemy)
+        if key == pygame.K_n and self.room.complete:  # next room key TODO Remove, this is for debugging
+            self.new_room(self.room.exit, 4)
 
     def react_to_keys(self):
         self.player.move(pygame.key.get_pressed())

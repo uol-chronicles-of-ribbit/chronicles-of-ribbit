@@ -18,7 +18,10 @@ class Room:
         WEST: EAST,
     }
     PLAYER_SPAWN_POINTS = {
-        NORTH: (const.SCREEN_W / 2, const.TILE_SIZE)
+        NORTH: (const.SCREEN_W / 2, const.TILE_SIZE),
+        EAST: (const.SCREEN_H - const.TILE_SIZE*2, const.SCREEN_H / 2),
+        SOUTH: (const.SCREEN_W / 2, const.SCREEN_H - const.TILE_SIZE*3),
+        WEST: (const.TILE_SIZE, const.SCREEN_H / 2),
     }
 
     def __init__(self, entrance=None, complete=False):
