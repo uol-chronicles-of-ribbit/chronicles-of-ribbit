@@ -20,7 +20,7 @@ class Game:
         self.room = None
         self.score = 0
         self.lives = 5
-        self.font = pygame.font.Font('freesansbold.ttf', 32)
+        self.font = pygame.font.Font('freesansbold.ttf', 18)
 
     def new_room(self, last_exit, enemies_count):
         self.room = Room(entrance=Room.OPPOSITE_DIRECTIONS[last_exit])
@@ -90,6 +90,13 @@ class Game:
 
         # check kills and update score
         self.score += self.room.enemies.check_if_dead(Projectile.projectiles)
+
+        self.enemies.draw(self.screen)
+
+        if self.lives <= 0:
+            game_over = self.font.render('GAME OVER!', True, (255, 255, 255))
+            self.screen.blit(game_over, (const.SCREEN_W//2, const.SCREEN_H//2))
+            return
 
         self.room.enemies.check_if_dead(Projectile.projectiles)
         self.room.enemies.draw(self.screen)
