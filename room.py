@@ -15,8 +15,7 @@ class Room:
         NORTH: (const.SCREEN_W / 2, const.TILE_SIZE)
     }
 
-    def __init__(self, screen, entrance=None, complete=False):
-        self.screen = screen
+    def __init__(self, entrance=None, complete=False):
         self.complete = complete
         self.entrance = entrance
         self.exit = self.create_exit()
@@ -54,5 +53,5 @@ class Room:
             self.entrance = self.NORTH
         return self.PLAYER_SPAWN_POINTS[self.entrance]
 
-    def create(self):
-        self.create_border_wall(self.screen)
+    def draw(self, screen):
+        self.create_border_wall(screen)

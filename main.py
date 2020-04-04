@@ -13,11 +13,16 @@ class Game:
         self.timer = pygame.time.Clock()
         pygame.display.set_caption(const.GAME_NAME)
         self.player = Player()
+        self.room = None
 
     def run(self):
         run = True
 
         while run:
+
+            # Create first room
+            if self.room is None:
+                self.room = Room()
 
             for event in pygame.event.get():
                 # exit game
@@ -28,7 +33,6 @@ class Game:
             self.update_objects()
             self.draw()
 
-            Room(self.screen).create()
             pygame.display.update()
             pygame.time.delay(50)
             self.timer.tick(const.FPS)
@@ -45,6 +49,7 @@ class Game:
     def draw(self):
         self.screen.fill(const.BG_COLOUR)
         self.player.draw(self.screen)
+        self.room.draw(self.screen)
 
 
 
