@@ -1,0 +1,4 @@
+# To install these packages to `pip install -r requirments.txt`
+
+#pygame
+pygame==1.9.6
