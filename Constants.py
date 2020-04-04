@@ -12,3 +12,4 @@ class Constants:
     BG_COLOUR = pygame.Color('dark blue')
     TILE_SIZE = 16
     WALL_IMAGE = 'assets/wall.png'
+    SPELL_SOUND = 'assets/spell.wav'

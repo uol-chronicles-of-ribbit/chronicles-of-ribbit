@@ -6,6 +6,7 @@ from room import Room
 from Player import Player
 from projectile import *
 from enemies import Enemies
+from pygame import mixer
 
 # initialize pygame
 pygame.init()
@@ -21,6 +22,8 @@ class Game:
         self.score = 0
         self.lives = 5
         self.font = pygame.font.Font('freesansbold.ttf', 18)
+        self.spell_sound = mixer.Sound(const.SPELL_SOUND)
+
 
     def new_room(self, last_exit, enemies_count):
         self.room = Room(entrance=Room.OPPOSITE_DIRECTIONS[last_exit])
@@ -68,6 +71,7 @@ class Game:
 
     def react_to_key_event(self, key):
         if key == pygame.K_SPACE:     # fire bullet
+            self.spell_sound.play()
             Bullet.fire_bullet(self.player)
         # if key == pygame.K_k:  # kill an enemy key TODO Remove, this is for debugging
         #     print('Enemy killed!')
