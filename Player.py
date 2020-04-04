@@ -9,6 +9,11 @@ class Player(Character):
     def __init__(self, x=const.SCREEN_W / 2, y=const.SCREEN_H / 2, speed=const.PLAYER_SPEED):
         super().__init__(x, y, speed)
 
+    def warp(self, coords):
+        """Sets the x, y position of the player to a given set of coordinates"""
+        self.x = coords[0]
+        self.y = coords[1]
+
     def move(self, keys):
         is_moving = False
 
