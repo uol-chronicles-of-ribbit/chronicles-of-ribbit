@@ -45,14 +45,13 @@ class Game:
                     if self.player.is_colliding(enemy.x, enemy.y, 32, 32):  # TODO remove hardcoded size variable
                         # TODO Handle player death
                         print("Dead!!!")
-                    # TODO Check if projectile is colliding
             elif not self.room.complete:
                 self.room.complete_room()
 
             if self.room.complete:
                 for exit_tile in self.room.exits:
-                    if self.player.is_colliding(exit_tile.x, exit_tile.y, const.TILE_SIZE, const.TILE_SIZE):
-                        self.room = Room(entrance=Room.OPPOSITE_DIRECTIONS[self.room.exit])
+                    if self.player.is_colliding(exit_tile.x, exit_tile.y, const.TILE_SIZE*2, const.TILE_SIZE*2):
+                        self.new_room(last_exit=self.room.exit, enemies_count=4)
 
             self.react_to_keys()
             self.update_objects()
@@ -83,10 +82,11 @@ class Game:
     def draw(self):
         self.screen.fill(const.BG_COLOUR)
         self.player.draw(self.screen)
+        self.room.draw(self.screen)
         Projectile.draw_projectiles(self.screen)
-        self.enemies.check_if_dead(Projectile.projectiles)
-        self.enemies.draw(self.screen)
-        self.enemies.move()
+        self.room.enemies.check_if_dead(Projectile.projectiles)
+        self.room.enemies.draw(self.screen)
+        self.room.enemies.move()
 
 
 if __name__ == "__main__":

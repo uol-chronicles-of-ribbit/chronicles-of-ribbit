@@ -39,27 +39,20 @@ class Room:
         for north_wall in range(0, const.SCREEN_W, const.TILE_SIZE):
             x = north_wall
             y = 0
-            print(str(x) + ' ' + str(y))
             self.walls.append(Wall(x, y, const.WALL_IMAGE))
         for east_wall in range(0, const.SCREEN_H-const.TILE_SIZE, const.TILE_SIZE):
             x = const.SCREEN_W - const.TILE_SIZE
             y = east_wall
-            print(str(x) + ' ' + str(y))
             self.walls.append(Wall(x, y, const.WALL_IMAGE))
         for south_wall in range(const.SCREEN_W-const.TILE_SIZE, 0, -const.TILE_SIZE):
             x = south_wall
             y = const.SCREEN_H - const.TILE_SIZE
-            print(str(x) + ' ' + str(y))
             self.walls.append(Wall(x, y, const.WALL_IMAGE))
         for west_wall in range(const.SCREEN_H-const.TILE_SIZE, 0, -const.TILE_SIZE):
             x = 0
             y = west_wall
-            print(str(x) + ' ' + str(y))
             self.walls.append(Wall(x, y, const.WALL_IMAGE))
 
-        for i, wall in enumerate(self.walls):
-            print(str(i) + ': ' + str(wall.x) + ', ' + str(wall.y))
-        print(len(self.walls))
 
     def create_exit(self):
         """Creates an exit direction randomly from N, E, S, W, excluding entrance direction if it exists."""
@@ -79,8 +72,15 @@ class Room:
             self.exits = self.walls[19:23]
         elif self.exit == self.EAST:
             self.exits = self.walls[57:61]
+            for exit_ in self.exits:
+                exit_.x -= const.TILE_SIZE
+                exit_.y -= const.TILE_SIZE
         elif self.exit == self.SOUTH:
             self.exits = self.walls[97:101]
+            # adjust hitbox so user can hit it
+            for exit_ in self.exits:
+                exit_.x -= const.TILE_SIZE
+                exit_.y -= const.TILE_SIZE
         elif self.exit == self.WEST:
             self.exits = self.walls[137:141]
 

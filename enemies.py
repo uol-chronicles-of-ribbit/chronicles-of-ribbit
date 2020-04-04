@@ -24,11 +24,10 @@ class Enemies:
             # for all active projectiles
                 #check if dead
         kill_count = 0
-        # TODO: fix hit detection.
         for enemy in self.alive_enemies:
             for proj in active_projectiles:
                 if enemy.is_colliding(proj.x, proj.y, Bullet.bullet_radius, Bullet.bullet_radius):
                     kill_count += 1
-                    print('hit an enemy')
+                    self.alive_enemies.remove(enemy)  # FIXME bad to remove from an existing list, crashes when multiple projectiles hit
 
         return kill_count
