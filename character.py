@@ -15,6 +15,21 @@ class Character:
         self.width = 16
         self.height = 32
 
+    # width and height of image: https://stackoverflow.com/questions/19715251/pygame-getting-the-size-of-a-loaded-image/19715931
+    def width(self):
+        if self.img:
+            return self.img.get_rect().size[0]
+        else:
+            return 0
+
+    def height(self):
+        if self.img:
+            return self.img.get_rect().size[1]
+        else:
+            return 0
+
+
+
     def draw(self, screen):
         # draw the image on x, y; else draw a red rectangle
         # TODO: consider image size and centre it
