@@ -6,6 +6,7 @@ from random import randint, choice as random_choice
 
 ENEMY_RANDOM_CHANGE_TICKS = 30
 
+
 # basics of jumping is commented out for now unless we add later
 class Enemy(Character):
 
@@ -23,6 +24,10 @@ class Enemy(Character):
             'left': 'images/mushroom-left.png',
             'right': 'images/mushroom-right.png',
         }
+    }
+    MONSTER_SOUNDS = {
+        TYPE_FOX: 'sounds/fox_death.wav',
+        TYPE_MUSHROOM: 'sounds/mushroom_death.wav',
     }
 
     def __init__(self, x=const.SCREEN_W // 2, y=const.SCREEN_H * 1 // 3, speed=const.ENEMY_SPEED_STARTING, monster=None):
@@ -43,6 +48,9 @@ class Enemy(Character):
         #TODO: add cool down period?
         self.x = randint(const.TILE_SIZE, const.SCREEN_W - const.TILE_SIZE - self.width)
         self.y = randint(const.TILE_SIZE, const.SCREEN_H - const.TILE_SIZE - self.height)
+
+    def get_death_sound(self):
+        return self.MONSTER_SOUNDS[self.monster]
 
     def move(self):
         # attempt movement first

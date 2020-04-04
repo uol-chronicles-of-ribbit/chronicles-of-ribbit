@@ -101,6 +101,9 @@ class Game:
 
         # check kills and update score
         self.score += self.room.enemies.check_if_dead(Projectile.projectiles)
+        for dead_enemy in self.room.enemies.dead_enemies:
+            mixer.Sound(dead_enemy.get_death_sound()).play()
+            self.room.enemies.dead_enemies.remove(dead_enemy)
 
         if self.lives <= 0:
             game_over = self.font.render('GAME OVER!', True, (255, 255, 255))
