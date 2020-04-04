@@ -1,6 +1,6 @@
 import pygame
 from Constants import Constants
-from Sprite import STANDING
+from Sprite import *
 
 FRAME_DELAY_BETWEEN_BULLETS = 300  # so spaced out
 BULLET_SPEED = 30
@@ -77,9 +77,11 @@ class Bullet(Projectile):
 
     @staticmethod
     def fire_bullet(char):
-        if pygame.time.get_ticks() - Bullet.last_bullet_frame_count > FRAME_DELAY_BETWEEN_BULLETS:
+        if pygame.time.get_ticks() - Bullet.last_bullet_frame_count > FRAME_DELAY_BETWEEN_BULLETS and char.invuln <= 0:
             # BEWARE maybe do want a default when there's no direction...
-            if char.facing() != STANDING:
-                Projectile.projectiles.append(Bullet(char.x + char.width / 2,
-                                                     char.y + char.height / 2,
-                                                     BULLET_SPEED, char.facing()))
+            way = char.facing()
+            if way == STANDING:
+                way = char.last_move
+            Projectile.projectiles.append(Bullet(char.x + char.width / 2,
+                                                 char.y + char.height / 2,
+                                                 BULLET_SPEED, way))

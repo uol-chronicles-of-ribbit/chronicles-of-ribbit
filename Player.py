@@ -1,7 +1,8 @@
 import pygame
 from Constants import Constants as const
-from Sprite import Sprite
+from Sprite import *
 from character import Character
+from projectile import spell_img
 
 
 # basics of jumping is commented out for now unless we add later
@@ -15,7 +16,17 @@ class Player(Character):
                                 [pygame.image.load("images/Rabbit_Idle_Back.png")],     #up
                                 [pygame.image.load("images/Rabbit_Idle_Front.png")]))    #down
         # amount of time after death player is invuln
+        self.last_move = LEFT
         self.invuln = 0
+        self.spawn_at = None
+        self.death_sequence = [pygame.image.load("images/Rabbit_Death_1.png"),
+                               pygame.image.load("images/Rabbit_Death_2.png"),
+                               pygame.image.load("images/Rabbit_Death_3.png"),
+                               pygame.image.load("images/Rabbit_Death_4.png"),
+                               pygame.image.load("images/Rabbit_Death_5.png"),
+                               pygame.image.load("images/Rabbit_Death_6.png"),
+                               pygame.image.load("images/Rabbit_Death_7.png"),
+                               pygame.image.load("images/Rabbit_Death_8.png")]
 
     def warp(self, coords):
         """Sets the x, y position of the player to a given set of coordinates"""
@@ -23,6 +34,9 @@ class Player(Character):
         self.y = coords[1]
 
     def move(self, keys):
+        if self.spawn_at:
+            return
+
         is_moving = False
 
         if keys[pygame.K_LEFT]:
@@ -42,42 +56,30 @@ class Player(Character):
             self.move_down()
 
         if not is_moving:
+            if self.sprite.direction != STANDING:
+                self.last_move = self.sprite.direction
             self.sprite.face_forwards()
 
     def died(self, enemies, room):
         if self.invuln <= 0:
             for enemy in enemies:
                 if self.get_rect().colliderect(enemy.get_rect()):
-                    self.warp(room.get_player_spawn_point())
+                    self.spawn_at = room.get_player_spawn_point()
                     self.invuln = 90
                     return True
         elif self.invuln > 0:
             self.invuln -= 1
 
+    def draw(self, screen):
+        if self.spawn_at is None:
+            Character.draw(self, screen)
 
-        # up and down only when not jumping, this code moves the player up and down, removed in favour of
-        # jumping with up and space fires a bullet
+        elif self.invuln > 0:
+            if self.invuln >= 51:
+                idx = int((90 - self.invuln) / 5)
+                screen.blit(self.death_sequence[idx], (self.x, self.y))
 
-        # if not self.isJumping:
-        #     if keys[pygame.K_UP]:
-        #         self.y = max(self.y - self.speed, 0)
-        #     if keys[pygame.K_DOWN]:
-        #         self.y = min(self.y + self.speed, Constants.SCREEN_H - Player.sprite_h)
-        #     if keys[pygame.K_SPACE]:
-        #         self.isJumping = True
-        #
-        # # space jumps except if already jumping
-        # if not self.isJumping:
-        #     if keys[pygame.K_UP]:
-        #         self.isJumping = True
-        #
-        # elif self.jumpCount >= -10:  # quadratic jump
-        #     jump_direction = 1  # once halfway through (at 0) turns to negative so drops back
-        #     if self.jumpCount < 0:
-        #         jump_direction = -1
-        #     self.y -= int((self.jumpCount ** 2) * 0.3 * jump_direction)
-        #     self.jumpCount -= 1
-        #
-        # else:  # done jumping, reset
-        #     self.isJumping = False
-        #     self.jumpCount = 10
+        else:
+            self.warp(self.spawn_at)
+            self.spawn_at = None
+

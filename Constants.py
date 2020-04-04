@@ -10,9 +10,12 @@ class Constants:
     SCREEN_H = 640
     GAME_NAME = 'Chronicles of Ribbit'
     FPS = 30
-    BG_COLOUR = pygame.Color('dark blue')
-    TILE_SIZE = 16
-    WALL_IMAGE = 'assets/wall.png'
+    BG_COLOUR = (89, 78, 66)
+    TILE_SIZE = 32
+    WALL_IMAGE = 'images/wall.png'
+    SPELL_SOUND = 'sounds/spell.wav'
+    PLAYER_DEATH_SOUND = 'sounds/player_death.wav'
+    ICON_FILE = 'images/icon.png'
 
     # Difficulty constants
     INCREASE_SPEED = 0
