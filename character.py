@@ -35,6 +35,16 @@ class Character:
             pygame.draw.rect(screen, (255,0,0), (self.x, self.y, 16, 32), 0)
 
 
+    def is_colliding(self, x, y, w, h):
+        if (self.x > x + w or x > self.x + self.width()):
+            return False
+
+        if (self.y < y + h or y < self.y + self.height()):
+            return False
+
+        return True
+
+
     def move_left(self):
         self.x = max(self.x - self.speed, 0)
 
