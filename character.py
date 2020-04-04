@@ -32,20 +32,20 @@ class Character:
         if self.img:
             screen.blit(self.img, (self.x, self.y))
         else:
-            pygame.draw.rect(screen, (255,0,0), (self.x, self.y, self.width(), self.height()), 0)
+            pygame.draw.rect(screen, (255,0,0), (self.x, self.y, 16, 32), 0)
 
 
     def move_left(self):
         self.x = max(self.x - self.speed, 0)
 
     def move_right(self):
-        self.x = min(self.x + self.speed, const.SCREEN_W - self.width)
+        self.x = min(self.x + self.speed, const.SCREEN_W - self.width())
 
     def move_up(self):
         self.y = max(self.y - self.speed, 0)
 
     def move_down(self):
-        self.y = min(self.y + self.speed, const.SCREEN_H - self.height)
+        self.y = min(self.y + self.speed, const.SCREEN_H - self.height())
 
     # TODO: thinking sprite class will be used by this class
     def advance_animation(self):
