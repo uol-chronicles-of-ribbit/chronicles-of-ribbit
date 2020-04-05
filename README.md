@@ -1,4 +1,4 @@
-# uol-team-a
+# Chronicles of Ribbit
 University of London Game Jam 2020 repo for Team A
 
 1. To run install python3 and pip3 from repos or - https://www.python.org/downloads/
